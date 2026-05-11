@@ -10,9 +10,12 @@ import numpy as np
 import os
 from PIL import Image, ImageDraw, ImageFont
 
-OUT_DIR = "Video"
+OUT_DIR     = "Video"
+MP4_DIR     = os.path.join(OUT_DIR, "MP4")
+MOV_DIR     = os.path.join(OUT_DIR, "MOV")
 SCREENSHOTS = "assets/screenshots"
-os.makedirs(OUT_DIR, exist_ok=True)
+os.makedirs(MP4_DIR, exist_ok=True)
+os.makedirs(MOV_DIR, exist_ok=True)
 
 # Video settings
 FPS        = 30
@@ -326,8 +329,8 @@ def video_01_home():
               "5 matching doctors shown"],
              3.0),
         ],
-        mp4_path=f"{OUT_DIR}/01_home_discovery.mp4",
-        mov_path=f"{OUT_DIR}/01_home_discovery.mov",
+        mp4_path=f"{MP4_DIR}/01_home_discovery.mp4",
+        mov_path=f"{MOV_DIR}/01_home_discovery.mov",
         feature_title="Doctor Discovery\n& Search",
         feature_subtitle="Home Screen - Browse, Filter & Find Specialists",
         info_panels=True,
@@ -350,8 +353,8 @@ def video_02_doctor_detail():
               "Book Appointment button"],
              5.0),
         ],
-        mp4_path=f"{OUT_DIR}/02_doctor_detail.mp4",
-        mov_path=f"{OUT_DIR}/02_doctor_detail.mov",
+        mp4_path=f"{MP4_DIR}/02_doctor_detail.mp4",
+        mov_path=f"{MOV_DIR}/02_doctor_detail.mov",
         feature_title="Doctor Profile\nDetail Screen",
         feature_subtitle="Full Doctor Information - Qualifications, Slots & CTA",
         info_panels=True,
@@ -373,8 +376,8 @@ def video_03_booking():
               "Proceed button enables on selection"],
              5.0),
         ],
-        mp4_path=f"{OUT_DIR}/03_booking_flow.mp4",
-        mov_path=f"{OUT_DIR}/03_booking_flow.mov",
+        mp4_path=f"{MP4_DIR}/03_booking_flow.mp4",
+        mov_path=f"{MOV_DIR}/03_booking_flow.mov",
         feature_title="Appointment\nBooking Screen",
         feature_subtitle="Choose Type, Date & Time - Proceed to Payment",
         info_panels=True,
@@ -414,8 +417,8 @@ def video_04_payment():
               "2-sec processing animation"],
              2.5),
         ],
-        mp4_path=f"{OUT_DIR}/04_payment_all_methods.mp4",
-        mov_path=f"{OUT_DIR}/04_payment_all_methods.mov",
+        mp4_path=f"{MP4_DIR}/04_payment_all_methods.mp4",
+        mov_path=f"{MOV_DIR}/04_payment_all_methods.mov",
         feature_title="Payment Screen\n4 Payment Methods",
         feature_subtitle="UPI  |  Card  |  Wallet  |  Net Banking",
         info_panels=True,
@@ -438,8 +441,8 @@ def video_05_confirmation():
               "Back to Home / My Bookings"],
              5.0),
         ],
-        mp4_path=f"{OUT_DIR}/05_confirmation.mp4",
-        mov_path=f"{OUT_DIR}/05_confirmation.mov",
+        mp4_path=f"{MP4_DIR}/05_confirmation.mp4",
+        mov_path=f"{MOV_DIR}/05_confirmation.mov",
         feature_title="Booking\nConfirmation",
         feature_subtitle="Success Animation, Booking Summary & Navigation",
         info_panels=True,
@@ -468,8 +471,8 @@ def video_06_my_bookings():
               "Browse Doctors shortcut"],
              2.5),
         ],
-        mp4_path=f"{OUT_DIR}/06_my_bookings.mp4",
-        mov_path=f"{OUT_DIR}/06_my_bookings.mov",
+        mp4_path=f"{MP4_DIR}/06_my_bookings.mp4",
+        mov_path=f"{MOV_DIR}/06_my_bookings.mov",
         feature_title="My Bookings\nDashboard",
         feature_subtitle="View & Manage All Appointments - Status Tracking",
         info_panels=True,
@@ -486,13 +489,12 @@ if __name__ == "__main__":
     video_05_confirmation()
     video_06_my_bookings()
 
-    print("\nAll videos saved to: " + os.path.abspath(OUT_DIR) + "/")
-    files = sorted(f for f in os.listdir(OUT_DIR)
-                   if f.endswith((".mp4", ".mov")))
-    print(f"Total files: {len(files)}")
+    print("\nAll videos saved:")
     total_kb = 0
-    for f in files:
-        kb = os.path.getsize(os.path.join(OUT_DIR, f)) // 1024
-        total_kb += kb
-        print(f"  {f:<40}  {kb:>6,} KB")
+    for label, folder in [("MP4", MP4_DIR), ("MOV", MOV_DIR)]:
+        print(f"\n  {folder}/")
+        for f in sorted(os.listdir(folder)):
+            kb = os.path.getsize(os.path.join(folder, f)) // 1024
+            total_kb += kb
+            print(f"    {f:<42}  {kb:>6,} KB")
     print(f"\n  Total size: {total_kb // 1024:,} MB")
